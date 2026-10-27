@@ -36,6 +36,89 @@
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
 }
 
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: 1.25rem;
+    max-width: 64rem;
+    margin: 0 auto 2rem;
+}
+
+.project-card {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    min-height: 14rem;
+    border-radius: 6px;
+    background-color: #08283a;
+    box-shadow: 0 10px 24px rgba(0, 10, 20, 0.35);
+}
+
+.project-preview {
+    position: absolute;
+    inset: 0;
+    display: block;
+}
+
+.project-preview img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 450ms ease;
+}
+
+.description {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.5rem;
+    color: #f3fbff;
+    background: linear-gradient(180deg, transparent 15%, rgba(2, 19, 38, 0.88) 100%);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(0.5rem);
+    transition: opacity 300ms ease, transform 300ms ease;
+}
+
+.project-title {
+    margin: 0 0 0.4rem;
+    color: #ffffff;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.55);
+}
+
+.description p {
+    margin: 0;
+    line-height: 1.5;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.8);
+}
+
+.project-card:hover .description,
+.project-card:focus-visible .description {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.project-card:hover .project-preview img,
+.project-card:focus-visible .project-preview img {
+    transform: scale(1.05);
+}
+
+.project-card:focus-visible {
+    outline: 3px solid #8cecff;
+    outline-offset: -3px;
+}
+
+@media (hover: none) {
+    .project-card .description {
+        opacity: 1;
+        transform: none;
+    }
+}
+
 body {
     position: relative;
     isolation: isolate;
@@ -95,8 +178,11 @@ body::after {
 
 @media (prefers-reduced-motion: reduce) {
     body::before,
-    body::after {
+    body::after,
+    .project-preview img,
+    .description {
         animation: none;
+        transition: none;
     }
 }
 
